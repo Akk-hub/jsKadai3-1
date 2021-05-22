@@ -1,30 +1,45 @@
 let count = 0;
 
-const addTask = () => {
-  const comment = document.getElementById("text").value;
-  const target = document.getElementById("table");
-  document.getElementById("text").value = "";
+const showTodo = (target, element) => {
+  target.appendChild(element);
+};
 
-  const task = document.createElement("tr");
+const createStatusButton = (status, target) => {
+  status = document.createElement('button');
+  target.appendChild(status);
+  status.textContent = '作業中';
+};
+
+const createDeleteButton = (deleteRow, target) => {
+  deleteRow = document.createElement('button');
+  target.appendChild(deleteRow);
+  deleteRow.textContent = '削除';
+};
+
+document.getElementById('add').onclick = function () {
+  const comment = document.getElementById('text').value;
+  const target = document.getElementById('table');
+  document.getElementById('text').value = '';
+
+  const task = document.createElement('tr');
   target.appendChild(task);
 
-  for (let i = 0; i < 4; i++) {
-    const element = document.createElement("td");
-    target.appendChild(element);
+  let element = document.createElement('td');
+  showTodo(target, element);
+  element.textContent = count;
+  count++;
 
-    if (i === 0) {
-      element.innerHTML = count;
-      count++;
-    } else if (i === 1) {
-      element.innerHTML = comment;
-    } else if (i === 3) {
-      const status = document.createElement("button");
-      target.appendChild(status);
-      status.innerHTML = "作業中";
-    } else {
-      const del = document.createElement("button");
-      target.appendChild(del);
-      del.innerHTML = "削除";
-    }
-  }
+  element = document.createElement('td');
+  showTodo(target, element);
+  element.textContent = comment;
+
+  element = document.createElement('td');
+  showTodo(target, element);
+  let status;
+  createStatusButton(status, target);
+
+  element = document.createElement('td');
+  showTodo(target, element);
+  let deleteRow;
+  createDeleteButton(deleteRow, target);
 };
