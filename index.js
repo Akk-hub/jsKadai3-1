@@ -1,13 +1,20 @@
 let count = 0;
+const todos = [];
+
+todo = {
+  task: '',
+  status: '作業中',
+};
 
 const showTodo = (target, element) => {
   target.appendChild(element);
 };
 
-const createStatusButton = (status, target) => {
-  status = document.createElement('button');
-  target.appendChild(status);
-  status.textContent = '作業中';
+const createStatusButton = (statusNow, target) => {
+  statusNow = document.createElement('button');
+  target.appendChild(statusNow);
+  todo.status = '作業中';
+  statusNow.textContent = todo.status;
 };
 
 const createDeleteButton = (deleteRow, target) => {
@@ -17,7 +24,7 @@ const createDeleteButton = (deleteRow, target) => {
 };
 
 document.getElementById('add').onclick = function () {
-  const comment = document.getElementById('text').value;
+  todo.task = document.getElementById('text').value;
   const target = document.getElementById('table');
   document.getElementById('text').value = '';
 
@@ -27,19 +34,21 @@ document.getElementById('add').onclick = function () {
   let element = document.createElement('td');
   showTodo(target, element);
   element.textContent = count;
-  count++;
 
   element = document.createElement('td');
   showTodo(target, element);
-  element.textContent = comment;
+  element.textContent = todo.task;
 
   element = document.createElement('td');
   showTodo(target, element);
-  let status;
-  createStatusButton(status, target);
+  let statusNow;
+  createStatusButton(statusNow, target);
 
   element = document.createElement('td');
   showTodo(target, element);
   let deleteRow;
   createDeleteButton(deleteRow, target);
+
+  todos[count] = todo;
+  count++;
 };
