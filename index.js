@@ -6,49 +6,49 @@ todo = {
   status: '作業中',
 };
 
-const showTodo = (target, element) => {
+const showTodo = (element) => {
+  const target = document.getElementById('table');
   target.appendChild(element);
 };
 
-const createStatusButton = (statusNow, target) => {
-  statusNow = document.createElement('button');
-  target.appendChild(statusNow);
-  todo.status = '作業中';
+const createStatusButton = () => {
+  const targetStatusButton = document.getElementById('table');
+  let statusNow = document.createElement('button');
   statusNow.textContent = todo.status;
+  targetStatusButton.appendChild(statusNow);
 };
 
-const createDeleteButton = (deleteRow, target) => {
-  deleteRow = document.createElement('button');
-  target.appendChild(deleteRow);
+const createDeleteButton = () => {
+  const targetDeleteButton = document.getElementById('table');
+  let deleteRow = document.createElement('button');
   deleteRow.textContent = '削除';
+  targetDeleteButton.appendChild(deleteRow);
 };
 
 document.getElementById('add').onclick = function () {
   todo.task = document.getElementById('text').value;
-  const target = document.getElementById('table');
+
   document.getElementById('text').value = '';
 
   const task = document.createElement('tr');
-  target.appendChild(task);
+  showTodo(task);
 
-  let element = document.createElement('td');
-  showTodo(target, element);
-  element.textContent = count;
+  const elementCount = document.createElement('td');
+  elementCount.textContent = count;
+  showTodo(elementCount);
 
-  element = document.createElement('td');
-  showTodo(target, element);
-  element.textContent = todo.task;
+  const elementTask = document.createElement('td');
+  elementTask.textContent = todo.task;
+  showTodo(elementTask);
 
-  element = document.createElement('td');
-  showTodo(target, element);
-  let statusNow;
-  createStatusButton(statusNow, target);
+  const elementStatus = document.createElement('td');
+  createStatusButton();
+  showTodo(elementStatus);
 
-  element = document.createElement('td');
-  showTodo(target, element);
-  let deleteRow;
-  createDeleteButton(deleteRow, target);
+  const elementDelete = document.createElement('td');
+  createDeleteButton();
+  showTodo(elementDelete);
 
-  todos[count] = todo;
+  todos.push(todo);
   count++;
 };
